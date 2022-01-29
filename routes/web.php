@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/q', function () {
 
-});
 Route::group(['prefix' => 'count', 'as' => 'count.'], function () {
     Route::get('/users/all', 'UserController@countTotalUsers')->name('users.all');
     Route::get('/teachers/all', 'UserController@countTotalInstructors')->name('instructors.all');
@@ -23,11 +21,12 @@ Route::group(['prefix' => 'count', 'as' => 'count.'], function () {
     Route::get('/course/all', 'CourseController@countTotalCourses')->name('courses.all');
 });
 
-
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/courses/last', 'CourseController@lastCourses')->name('courses.last');
+Route::get('/activities/last', 'ActivityController@lastActivities')->name('activities.last');
 
 Auth::routes();
 
