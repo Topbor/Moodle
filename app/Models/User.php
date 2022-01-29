@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\UserRoles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -11,30 +14,50 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
+    protected $table = 'mdl_user';
+
+    protected $guarded = [
+        'id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'mdl_role_assignments',
+            'userid',
+            'roleid'
+        );
+    }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public static function getInstructors(Collection $users): array
+    {
+        return $users->reduce(function(array $acc, $u){
+            if($u->roles->count()>1){
+                $role = $u->roles->whereIn('shortname', [
+                    UserRoles::TEACHER,
+                    UserRoles::COURSECREATOR,
+                    UserRoles::EDITINGTEACHER,
+                    UserRoles::MANAGER
+                    ])->first();
+                if($role){
+                    $acc[] = $u;
+                }
+            }
+            return $acc;
+        }, []);
+    }
+
+    public static function getStudents(Collection $users): array
+    {
+        return $users->reduce(function(array $acc, $u){
+            if($u->roles->count()>1){
+                $role = $u->roles->where('shortname', UserRoles::STUDENT)->first();
+                if($role){
+                    $acc[] = $u;
+                }
+            }
+            return $acc;
+        }, []);
+    }
 }
