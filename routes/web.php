@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'count', 'as' => 'count.'], function () {
     Route::get('/users/all', 'UserController@countTotalUsers')->name('users.all');
-    Route::get('/teachers/all', 'UserController@countTotalInstructors')->name('instructors.all');
+    Route::get('/instructors/all', 'UserController@countTotalInstructors')->name('instructors.all');
     Route::get('/students/all', 'UserController@countTotalStudents')->name('students.all');
     Route::get('/course/all', 'CourseController@countTotalCourses')->name('courses.all');
 });
@@ -27,6 +27,7 @@ Route::get('/', function () {
 
 Route::get('/courses/last', 'CourseController@lastCourses')->name('courses.last');
 Route::get('/activities/last', 'ActivityController@lastActivities')->name('activities.last');
+Route::get('/instructors/last', 'UserController@lastInstructors')->name('instructors.last');
 
 Auth::routes();
 

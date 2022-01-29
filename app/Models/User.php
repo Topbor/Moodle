@@ -35,16 +35,21 @@ class User extends Authenticatable
             'roleid'
         );
     }
-//
-//    public function lastAccess(): BelongsToMany
-//    {
-//        return $this->belongsToMany(
-//            User::class,
-//            'mdl_user_lastaccess',
-//            'userid',
-//            'courseid'
-//        )->withPivot('timeaccess');
-//    }
+
+    public function lastaccess(): HasMany
+    {
+        return $this->hasMany(LastAccess::class,'userid')->orderByDesc('timeaccess')->first();
+    }
+
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Course::class,
+            'mdl_user_lastaccess',
+            'userid',
+            'courseid'
+        );
+    }
 
     public static function getInstructors(Collection $users): array
     {

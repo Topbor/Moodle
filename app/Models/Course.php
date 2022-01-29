@@ -24,15 +24,10 @@ class Course extends Model
         return $this->belongsTo(CourseCategory::class, 'category');
     }
 
-//    public function usersLastAccess(): BelongsToMany
-//    {
-//        return $this->belongsToMany(
-//            User::class,
-//            'mdl_user_lastaccess',
-//            'course',
-//            'userid'
-//        )->withPivot('timeaccess');
-//    }
+    public function lastaccess(): HasMany
+    {
+        return $this->hasMany(LastAccess::class,'course');
+    }
 
     public function completions(): HasMany
     {

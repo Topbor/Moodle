@@ -12,6 +12,7 @@ class UserResource extends Resource
             'firstname'     => $this->firstname,
             'lastname'      => $this->lastname,
             'email'         => $this->email,
+            'courses'       => CourseResource::collection($this->whenLoaded('courses')),
             'roles'         => RoleResource::collection($this->whenLoaded('roles')),
         ];
     }
