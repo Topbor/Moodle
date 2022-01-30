@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Completions extends \Illuminate\Database\Eloquent\Model
+class Enrolment extends \Illuminate\Database\Eloquent\Model
 {
-    protected $table = 'mdl_course_completions';
+    protected $table = 'mdl_user_enrolments';
 
     protected $guarded = [
         'id'
@@ -21,15 +21,14 @@ class Completions extends \Illuminate\Database\Eloquent\Model
 
     public function courseComp(): BelongsTo
     {
-        return $this->belongsTo(Course::class, 'course');
+        return $this->belongsTo(Course::class, 'enrolid');
     }
 
-    public static function lastCompleted(Collection $activity): array
+    public static function lastEnrolment(Collection $activity): array
     {
         return $activity->reduce(function(array $acc, $curr){
-            $acc[] = ['time' => $curr->timecompleted, 'id' => $curr->id, 'type' => 'completion'];
+            $acc[] = ['time' => $curr->timecreated, 'id' => $curr->id, 'type' => 'enrolment'];
             return $acc;
         }, []);
-
     }
 }

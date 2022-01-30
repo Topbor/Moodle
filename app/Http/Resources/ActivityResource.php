@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource as Resource;
 
-class CompletionResource extends Resource
+class ActivityResource extends Resource
 {
     public function toArray($request)
     {
