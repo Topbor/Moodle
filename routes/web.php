@@ -30,6 +30,9 @@ Route::get('/activities/last', 'ActivityController@lastActivities')->name('activ
 Route::get('/instructors/last', 'UserController@lastInstructors')->name('instructors.last');
 Route::get('/students', 'StudentController@students')->name('students');
 
+Route::get('/export', 'ExportController@exportCsv')->name('export.csv');
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
