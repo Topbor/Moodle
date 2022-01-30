@@ -122,6 +122,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/ui" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tucker-eric/eloquentfilter" />
     </content>
     <content url="file://$MODULE_DIR$/node_modules" />
     <orderEntry type="inheritedJdk" />

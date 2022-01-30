@@ -28,6 +28,7 @@ Route::get('/', function () {
 Route::get('/courses/last', 'CourseController@lastCourses')->name('courses.last');
 Route::get('/activities/last', 'ActivityController@lastActivities')->name('activities.last');
 Route::get('/instructors/last', 'UserController@lastInstructors')->name('instructors.last');
+Route::get('/students', 'StudentController@students')->name('students');
 
 Auth::routes();
 
