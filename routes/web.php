@@ -30,6 +30,13 @@ Route::get('/activities/last', 'ActivityController@lastActivities')->name('activ
 Route::get('/instructors/last', 'UserController@lastInstructors')->name('instructors.last');
 Route::get('/students', 'StudentController@students')->name('students');
 
+Route::group(['prefix' => 'graph', 'as' => 'graph.'], function () {
+    Route::get('/enrolments', 'GraphController@getEnrolments')->name('graph.enrolments');
+    Route::get('/completions', 'GraphController@getCompletions')->name('graph.completions');
+    Route::get('/methods', 'GraphController@getEnrolmentMethods')->name('graph.methods');
+});
+
+
 Route::get('/export', 'ExportController@exportCsv')->name('export.csv');
 
 
