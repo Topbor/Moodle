@@ -36,6 +36,7 @@ Route::group(['prefix' => 'graph', 'as' => 'graph.'], function () {
     Route::get('/methods', 'GraphController@getEnrolmentMethods')->name('graph.methods');
 });
 
+Route::apiResource('constructor', 'ConstructorController');
 
 Route::get('/export', 'ExportController@exportCsv')->name('export.csv');
 
